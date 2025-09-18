@@ -1,26 +1,32 @@
 {
-  "name": "ai-arxiv",
+  "name": "paper-assistant",
   "version": "1.0.0",
-  "description": "```shell npm install --save-dev webpack webpack-cli ts-loader",
-  "main": "postcss.config.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.20",
-    "axios": "^1.7.8",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^9.6.0",
     "lucide-react": "^0.462.0",
-    "mini-css-extract-plugin": "^2.9.2",
+    "next": "^14.2.15",
+    "postcss": "^8.4.47",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^7.0.1",
-    "react-toastify": "^10.0.6",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.15",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.9",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "typescript": "^5.6.3"
   }
 }

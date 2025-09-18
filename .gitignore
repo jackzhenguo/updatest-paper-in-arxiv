@@ -1,2 +1,8 @@
 .DS_Store
 node_modules
+/.next
+/out
+/data/*.db
+/data/*.sqlite
+.env
+.env.local
