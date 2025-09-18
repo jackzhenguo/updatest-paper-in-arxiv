@@ -1,0 +1,26 @@
+{
+  "name": "ai-arxiv",
+  "version": "1.0.0",
+  "description": "```shell npm install --save-dev webpack webpack-cli ts-loader",
+  "main": "postcss.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.8",
+    "lucide-react": "^0.462.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^7.0.1",
+    "react-toastify": "^10.0.6",
+    "tailwindcss": "^3.4.15"
+  }
+}
