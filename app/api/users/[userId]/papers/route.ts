@@ -8,6 +8,18 @@ interface Params {
   };
 }
 
+interface PaperRow {
+  id: number;
+  paper_title: string;
+  paper_link: string | null;
+  doi: string | null;
+  published: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  rating: number | null;
+}
+
 export async function GET(req: NextRequest, { params }: Params) {
   const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
   const sessionUserId = getUserIdFromToken(token);
@@ -28,7 +40,7 @@ export async function GET(req: NextRequest, { params }: Params) {
        WHERE user_id = ?
        ORDER BY created_at DESC`
     )
-    .all(requestedUserId);
+    .all(requestedUserId) as PaperRow[];
 
   const papers = rows.map((row) => ({
     id: row.id,

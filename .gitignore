@@ -3,6 +3,7 @@ node_modules
 /.next
 /out
 /data/*.db
+/data/*.db-*
 /data/*.sqlite
 .env
 .env.local

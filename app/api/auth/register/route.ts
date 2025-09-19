@@ -3,6 +3,15 @@ import { hash } from 'bcryptjs';
 import db from '@/lib/db';
 import { isValidPassword } from '@/lib/password';
 
+const isSqliteConstraintError = (error: unknown): error is { code: string } => {
+  if (typeof error !== 'object' || error === null || !('code' in error)) {
+    return false;
+  }
+
+  const code = (error as { code?: unknown }).code;
+  return typeof code === 'string' && code.startsWith('SQLITE_CONSTRAINT');
+};
+
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const emailRaw = body.email as string | undefined;
@@ -30,7 +39,17 @@ export async function POST(req: NextRequest) {
   }
 
   const passwordHash = await hash(password, 12);
-  db.prepare('INSERT INTO users (email, password) VALUES (?, ?)').run(email, passwordHash);
+
+  try {
+    db.prepare('INSERT INTO users (email, password) VALUES (?, ?)').run(email, passwordHash);
+  } catch (error) {
+    if (isSqliteConstraintError(error)) {
+      return NextResponse.json({ message: 'Email already registered.' }, { status: 400 });
+    }
+
+    console.error('Error registering user:', error);
+    return NextResponse.json({ message: 'Failed to register user.' }, { status: 500 });
+  }
 
   return NextResponse.json({ message: 'Registration successful! Please log in.' });
 }

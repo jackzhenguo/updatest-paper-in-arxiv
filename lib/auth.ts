@@ -14,16 +14,27 @@ export const getUserIdFromToken = (token?: string | null): number | null => {
   if (!token) {
     return null;
   }
-  const row = db.prepare('SELECT user_id FROM sessions WHERE token = ?').get(token);
-  if (!row) {
+  try {
+    const row = db
+      .prepare('SELECT user_id FROM sessions WHERE token = ?')
+      .get(token) as { user_id: number } | undefined;
+    if (!row) {
+      return null;
+    }
+    return row.user_id;
+  } catch (error) {
+    console.error('Failed to read session token:', error);
     return null;
   }
-  return row.user_id as number;
 };
 
 export const deleteSession = (token?: string | null) => {
   if (!token) {
     return;
   }
-  db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
+  try {
+    db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
+  } catch (error) {
+    console.error('Failed to delete session token:', error);
+  }
 };
