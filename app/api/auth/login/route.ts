@@ -20,7 +20,9 @@ export async function POST(req: NextRequest) {
   }
 
   const email = emailRaw.trim().toLowerCase();
-  const user = db.prepare('SELECT id, password FROM users WHERE email = ?').get(email);
+  const user = db
+    .prepare('SELECT id, password FROM users WHERE email = ?')
+    .get(email) as { id: number; password: string } | undefined;
 
   if (!user) {
     return NextResponse.json({ message: 'Invalid credentials, please try again.' }, { status: 401 });
